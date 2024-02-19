@@ -1,0 +1,38 @@
+﻿@model UserResponse
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Response</title>
+</head>
+<body>
+    <form method="post">
+        <div>
+            <input asp-for="Name" placeholder="Adınız" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div>
+            <input asp-for="Email" placeholder="Eposta adresiniz" />
+            <span asp-validation-for="Email"></span>
+
+        </div>
+        <div>
+            <select asp-for="IsParticipate">
+                <option value="">Seçiniz...</option>
+                <option value="True">Geleceğim</option>
+                <option value="False">Gelmeyeceğim</option>
+
+                <span asp-validation-for="IsParticipate"></span>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Yanıtı gönder</button>
+        </div>
+    </form>
+</body>
+</html>

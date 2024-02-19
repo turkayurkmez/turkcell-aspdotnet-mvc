@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    Burası Home/Index!
+    <p>Selam sana @ViewBag.UserName</p>
+    @if (ViewBag.IsTurkey)
+    {
+        <p>Demek Türkiye...</p>
+    }
+    else
+    {
+        <p>Demek Yurt dışı...</p>
+
+    }
+
+    <p>
+        Bu haftasonu için sana özel davetimiz var. Katılmak için <a asp-action="Response" asp-controller="Home">tıkla</a>
+    </p>
+</body>
+</html>
