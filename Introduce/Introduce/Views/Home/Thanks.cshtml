@@ -1,23 +1,10 @@
 ﻿@model UserResponse
-@{
-    Layout = null;
+
+@if (Model.IsParticipate.Value)
+{
+    <p>Harika @Model.Name! Bekliyoruz</p>
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Thanks</title>
-</head>
-<body>
-    @if (Model.IsParticipate.Value)
-    {
-        <p>Harika @Model.Name! Bekliyoruz</p>
-    }
-    else
-    {
-        <p>Üzüldük @Model.Name :(  başka sefere</p>
-    }
-</body>
-</html>
+else
+{
+    <p>Üzüldük @Model.Name :(  başka sefere</p>
+}
