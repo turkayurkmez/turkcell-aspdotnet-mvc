@@ -1,4 +1,5 @@
-﻿using eshop.DataAccess.Repositories;
+﻿using AutoMapper;
+using eshop.DataAccess.Repositories;
 using eshop.Entities;
 using eshop.Services.DataTransferObjects.Response;
 using System;
@@ -12,10 +13,12 @@ namespace eshop.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository productRepository;
+        private readonly IMapper mapper;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IMapper mapper)
         {
             this.productRepository = productRepository;
+            this.mapper = mapper;
         }
 
         public IEnumerable<ProductCardResponse> GetProductCardsByCategory(int id)
@@ -24,16 +27,17 @@ namespace eshop.Services
 
             // TODO 1: Automapper eklemeyi unutma!
 
-            var response = products.Select(p => new ProductCardResponse
-            {
-                Description = p.Description,
-                Id = p.Id,
-                DiscountRate = p.DiscountRate,
-                ImageUrl = p.ImageUrl,
-                Name = p.Name,
-                Price = p.Price,
-            });
+            //var response = products.Select(p => new ProductCardResponse
+            //{
+            //    Description = p.Description,
+            //    Id = p.Id,
+            //    DiscountRate = p.DiscountRate,
+            //    ImageUrl = p.ImageUrl,
+            //    Name = p.Name,
+            //    Price = p.Price,
+            //});
 
+            var response = mapper.Map<IEnumerable<ProductCardResponse>>(products);
             return response;
 
         }
@@ -41,17 +45,7 @@ namespace eshop.Services
         public IEnumerable<ProductCardResponse> GetProducts()
         {
             var products = productRepository.GetAll();
-
-            var response = products.Select(p => new ProductCardResponse
-            {
-                Description = p.Description,
-                Id = p.Id,
-                DiscountRate = p.DiscountRate,
-                ImageUrl = p.ImageUrl,
-                Name = p.Name,
-                Price = p.Price,
-            });
-
+            var response = mapper.Map<IEnumerable<ProductCardResponse>>(products);
             return response;
 
 
