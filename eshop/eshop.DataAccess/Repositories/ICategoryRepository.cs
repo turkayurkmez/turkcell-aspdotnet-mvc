@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace eshop.DataAccess.Repositories
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface ICategoryRepository : IRepository<Category>
     {
-        IEnumerable<Product> Search(string name);
-        IEnumerable<Product> GetProductsByCategory(int id);
     }
 }

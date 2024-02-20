@@ -1,0 +1,12 @@
+﻿@model ProductCardResponse
+<div class="card">
+
+    <img src="@Model.ImageUrl" class="card-img-top img-thumbnail" />
+    <div class="card-body">
+        <h4 class="card-title">@Model.Name</h4>
+        <p class="card-text">@Model.Description </p>
+        <p class="card-text">@Model.Price yerine, @(Model.Price * (1 - Model.DiscountRate)) TL </p>
+        <button class="btn btn-dark">Sepete Ekle</button>
+    </div>
+
+</div>

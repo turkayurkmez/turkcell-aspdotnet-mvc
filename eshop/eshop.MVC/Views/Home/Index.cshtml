@@ -1,6 +1,8 @@
-﻿@model IEnumerable<ProductCardResponse>
+﻿@model IndexViewModel
 @{
     ViewData["Title"] = "Home Page";
+    var activeClass = string.Empty;
+    var counter = 0;
 }
 
 <div class="text-center">
@@ -8,21 +10,28 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-<div class="row">
-    @foreach (var product in Model)
+<div class="row m-2">
+    @foreach (var product in Model.ProductCardResponses)
     {
-        <div class="col-3">
-            <div class="card">
-
-                <img src="@product.ImageUrl" class="card-img-top img-thumbnail" />
-                <div class="card-body">
-                    <h4 class="card-title">@product.Name</h4>
-                    <p class="card-text">@product.Description </p>
-                    <p class="card-text">@product.Price yerine, @(product.Price * (1 - product.DiscountRate)) TL </p>
-                    <button class="btn btn-dark">Sepete Ekle</button>
-                </div>
-
-            </div>
+        if (counter != 0 && counter % 3 == 0 )
+        {
+            @:</div>
+            @:<div class="row m-2">
+        }
+        <div class="col-4">
+          <partial name="_ProductCard" model="product"/>
         </div>
+        counter++;
     }
+</div>
+
+<div>
+    <ul class="pagination pagination-lg">
+        @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+        {
+            activeClass = i == Model.PagingInfo.ActivePage ? "active" : "";
+            <li class="page-item @activeClass"><a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-category="@ViewBag.Category">@i</a></li>
+        }
+        
+    </ul>
 </div>

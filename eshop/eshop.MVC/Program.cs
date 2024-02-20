@@ -7,6 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IProductRepository, FakeProductRepository>();
+builder.Services.AddTransient<ICategoryRepository, FakeCategoryRepository>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+//TODO 2: IoC LifeTime P.O.C çalışması yap
+
 
 //1. Transient: Nesneye her ihtiyaç duyulduğunda bellekte yeni bir tane üretsin.
 //2. Singleton: Sadece bir adet bellekte üretsin. Her ihtiyaç duyduğunda aynı nesneyi kullansın.
@@ -28,6 +32,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+
+app.MapControllerRoute("paging", "Category{category}/Page{page}", defaults: new { controller = "Home", action = "Index", page = 1 });
 
 app.MapControllerRoute(
     name: "default",

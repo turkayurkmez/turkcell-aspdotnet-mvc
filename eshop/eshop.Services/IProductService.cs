@@ -6,5 +6,6 @@ namespace eshop.Services
     public interface IProductService
     {
         IEnumerable<ProductCardResponse> GetProducts();
+        IEnumerable<ProductCardResponse> GetProductCardsByCategory(int id);
     }
 }

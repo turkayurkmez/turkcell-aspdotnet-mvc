@@ -22,6 +22,8 @@ namespace eshop.Entities
 
         public bool IsActive { get; set; }
 
+        public int CategoryId { get; set; }
+
 
     }
 }
