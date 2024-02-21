@@ -9,9 +9,9 @@ namespace eshop.DataAccess.Repositories
 {
     public class FakeProductRepository : IProductRepository
     {
-        public Product Get(int id)
+        public Product? Get(int id)
         {
-            throw new NotImplementedException();
+            return products.SingleOrDefault(p => p.Id == id);
         }
 
         private List<Product> products = new List<Product>()

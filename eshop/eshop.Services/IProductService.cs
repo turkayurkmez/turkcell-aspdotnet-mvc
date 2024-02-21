@@ -7,5 +7,8 @@ namespace eshop.Services
     {
         IEnumerable<ProductCardResponse> GetProducts();
         IEnumerable<ProductCardResponse> GetProductCardsByCategory(int id);
+
+        ProductCardResponse GetProductForAddToCard(int id);
+
     }
 }

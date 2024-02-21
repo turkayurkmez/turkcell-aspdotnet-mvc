@@ -42,6 +42,12 @@ namespace eshop.Services
 
         }
 
+        public ProductCardResponse GetProductForAddToCard(int id)
+        {
+            var product = productRepository.Get(id);
+            return mapper.Map<ProductCardResponse>(product);
+        }
+
         public IEnumerable<ProductCardResponse> GetProducts()
         {
             var products = productRepository.GetAll();

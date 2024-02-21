@@ -11,12 +11,17 @@ builder.Services.AddTransient<IProductRepository, FakeProductRepository>();
 builder.Services.AddTransient<ICategoryRepository, FakeCategoryRepository>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 //TODO 2: IoC LifeTime P.O.C çalışması yap
-
-builder.Services.AddAutoMapper(typeof(MapperProfile));
-
 //1. Transient: Nesneye her ihtiyaç duyulduğunda bellekte yeni bir tane üretsin.
 //2. Singleton: Sadece bellekte bir adet üretsin. Her ihtiyaç duyduğunda aynı nesneyi kullansın.
 //3. Scoped: HttpRequest içerisinde bir tane üretsin, aynı request içinde aynı nesneyi kullansın fakat request yenilendiğinde başka bir nesne oluştursun.
+
+builder.Services.AddAutoMapper(typeof(MapperProfile));
+builder.Services.AddSession(option =>
+{
+    option.IdleTimeout = TimeSpan.FromMinutes(8);
+});
+
+
 
 var app = builder.Build();
 
@@ -32,7 +37,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 
