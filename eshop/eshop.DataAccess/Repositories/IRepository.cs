@@ -12,5 +12,13 @@ namespace eshop.DataAccess.Repositories
         IEnumerable<T> GetAll();
         T Get(int id);
 
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetAsync(int id);
+
+        Task CreateAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(int id);
+
+
     }
 }

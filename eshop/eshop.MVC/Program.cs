@@ -1,15 +1,20 @@
-﻿using eshop.DataAccess.Repositories;
+﻿using eshop.DataAccess.Data;
+using eshop.DataAccess.Repositories;
 using eshop.Services;
 using eshop.Services.MapProfiler;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<IProductService, ProductService>();
-builder.Services.AddTransient<IProductRepository, FakeProductRepository>();
-builder.Services.AddTransient<ICategoryRepository, FakeCategoryRepository>();
-builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductRepository, EFProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+var connectionString = builder.Configuration.GetConnectionString("db");
+builder.Services.AddDbContext<TurkcellDbContext>(options => options.UseSqlServer(connectionString));
 //TODO 2: IoC LifeTime P.O.C çalışması yap
 //1. Transient: Nesneye her ihtiyaç duyulduğunda bellekte yeni bir tane üretsin.
 //2. Singleton: Sadece bellekte bir adet üretsin. Her ihtiyaç duyduğunda aynı nesneyi kullansın.

@@ -11,5 +11,8 @@ namespace eshop.DataAccess.Repositories
     {
         IEnumerable<Product> Search(string name);
         IEnumerable<Product> GetProductsByCategory(int id);
+
+        Task<IEnumerable<Product>> SearchAsync(string name);
+        Task<IEnumerable<Product>> GetProductsByCategoryAsync(int id);
     }
 }
