@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using eshop.DataAccess.Repositories;
 using eshop.Entities;
+using eshop.Services.DataTransferObjects.Request;
 using eshop.Services.DataTransferObjects.Response;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,18 @@ namespace eshop.Services
         {
             this.productRepository = productRepository;
             this.mapper = mapper;
+        }
+
+        public async Task<int> CreateAsync(CreateNewProductRequest request)
+        {
+            var product = mapper.Map<Product>(request);
+            await productRepository.CreateAsync(product);
+            return product.Id;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            await productRepository.DeleteAsync(id);
         }
 
         public IEnumerable<ProductCardResponse> GetProductCardsByCategory(int id)
@@ -42,9 +55,21 @@ namespace eshop.Services
 
         }
 
+        public async Task<IEnumerable<ProductCardResponse>> GetProductCardsByCategoryAsync(int id)
+        {
+            var products = await productRepository.GetProductsByCategoryAsync(id);
+            return mapper.Map<IEnumerable<ProductCardResponse>>(products);
+        }
+
         public ProductCardResponse GetProductForAddToCard(int id)
         {
             var product = productRepository.Get(id);
+            return mapper.Map<ProductCardResponse>(product);
+        }
+
+        public async Task<ProductCardResponse> GetProductForAddToCardAsync(int id)
+        {
+            var product = await productRepository.GetAsync(id);
             return mapper.Map<ProductCardResponse>(product);
         }
 
@@ -57,6 +82,18 @@ namespace eshop.Services
 
         }
 
+        public async Task<IEnumerable<ProductCardResponse>> GetProductsAsync()
+        {
+            var products = await productRepository.GetAllAsync();
+            var response = mapper.Map<IEnumerable<ProductCardResponse>>(products);
+            return response;
+        }
 
+        public async Task UpdateAsync(UpdateProductRequest request)
+        {
+            var product = mapper.Map<Product>(request);
+            await productRepository.UpdateAsync(product);
+
+        }
     }
 }

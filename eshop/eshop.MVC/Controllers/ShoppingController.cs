@@ -23,10 +23,10 @@ namespace eshop.MVC.Controllers
             return View(collection);
         }
 
-        public IActionResult AddToCard(int id)
+        public async Task<IActionResult> AddToCard(int id)
         {
 
-            var product = productService.GetProductForAddToCard(id);
+            var product = await productService.GetProductForAddToCardAsync(id);
             if (product == null)
             {
                 return Json(new { message = $"{id} id'li ürün db'de bulunamadı!" });
