@@ -16,7 +16,7 @@ namespace eshop.Services.MapProfiler
         {
             CreateMap<Product, ProductCardResponse>();
             CreateMap<CreateNewProductRequest, Product>();
-            CreateMap<UpdateProductRequest, Product>();
+            CreateMap<UpdateProductRequest, Product>().ReverseMap();
 
         }
 

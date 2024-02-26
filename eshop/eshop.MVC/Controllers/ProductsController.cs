@@ -1,10 +1,12 @@
 ﻿using eshop.Services;
 using eshop.Services.DataTransferObjects.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace eshop.MVC.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly ICategoryService categoryService;
@@ -16,6 +18,7 @@ namespace eshop.MVC.Controllers
             this.productService = productService;
         }
 
+
         public async Task<IActionResult> Index()
         {
             var products = await productService.GetProductsAsync();
@@ -23,6 +26,7 @@ namespace eshop.MVC.Controllers
         }
 
         [HttpGet]
+
         public IActionResult Create()
         {
             ViewBag.Categories = GetCategorySelectListItems();
@@ -44,18 +48,20 @@ namespace eshop.MVC.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             ViewBag.Categories = GetCategorySelectListItems();
-            var product = await productService.GetProductForAddToCardAsync(id);
-            UpdateProductRequest updateProductRequest = new UpdateProductRequest
-            {
-                Description = product.Description,
-                DiscountRate = product.DiscountRate,
-                ImageUrl = product.ImageUrl,
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price
+            var request = await productService.GetUpdateProductRequest(id);
 
-            };
-            return View(updateProductRequest);
+            return View(request);
+        }
+
+        public async Task<IActionResult> Edit(UpdateProductRequest request)
+        {
+            if (ModelState.IsValid)
+            {
+                await productService.UpdateAsync(request);
+                return RedirectToAction("Index");
+            }
+            ViewBag.Categories = GetCategorySelectListItems();
+            return View();
         }
 
         IEnumerable<SelectListItem> GetCategorySelectListItems()

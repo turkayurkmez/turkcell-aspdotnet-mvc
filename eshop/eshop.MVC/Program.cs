@@ -2,6 +2,7 @@
 using eshop.DataAccess.Repositories;
 using eshop.Services;
 using eshop.Services.MapProfiler;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRepository, EFProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var connectionString = builder.Configuration.GetConnectionString("db");
 builder.Services.AddDbContext<TurkcellDbContext>(options => options.UseSqlServer(connectionString));
@@ -25,6 +27,14 @@ builder.Services.AddSession(option =>
 {
     option.IdleTimeout = TimeSpan.FromMinutes(8);
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option =>
+                {
+                    option.AccessDeniedPath = "/Users/AccessDenied";
+                    option.LoginPath = "/Users/Login";
+                    option.ReturnUrlParameter = "gidilecekSayfa";
+                });
 
 
 
@@ -40,13 +50,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-app.UseSession();
+
+
+app.UseAuthentication();
 app.UseAuthorization();
 
-
-app.MapControllerRoute("paging", "Category{category}/Page{page}", defaults: new { controller = "Home", action = "Index", page = 1 });
+app.UseSession();
+app.MapControllerRoute("paging", "Page{page}", defaults: new { controller = "Home", action = "Index", page = 1 });
 
 app.MapControllerRoute(
     name: "default",

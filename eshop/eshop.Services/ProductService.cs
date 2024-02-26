@@ -89,6 +89,12 @@ namespace eshop.Services
             return response;
         }
 
+        public async Task<UpdateProductRequest> GetUpdateProductRequest(int id)
+        {
+            var product = await productRepository.GetAsync(id);
+            return mapper.Map<UpdateProductRequest>(product);
+        }
+
         public async Task UpdateAsync(UpdateProductRequest request)
         {
             var product = mapper.Map<Product>(request);

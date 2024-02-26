@@ -26,7 +26,7 @@ namespace eshop.MVC.Controllers
             var info = new PagingInfo
             {
                 TotalCount = products.Count(),
-                PageSize = 6,
+                PageSize = 3,
                 ActivePage = page
             };
 

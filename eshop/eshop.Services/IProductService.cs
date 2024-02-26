@@ -13,6 +13,9 @@ namespace eshop.Services
         Task<IEnumerable<ProductCardResponse>> GetProductCardsByCategoryAsync(int id);
         Task<ProductCardResponse> GetProductForAddToCardAsync(int id);
 
+        Task<UpdateProductRequest> GetUpdateProductRequest(int id);
+
+
         Task<int> CreateAsync(CreateNewProductRequest request);
         Task UpdateAsync(UpdateProductRequest request);
 
