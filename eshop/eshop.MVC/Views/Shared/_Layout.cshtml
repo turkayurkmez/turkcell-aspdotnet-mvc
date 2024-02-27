@@ -25,6 +25,18 @@
                         <li class="nav-item">
                            @await Component.InvokeAsync("BasketLink")
                         </li>
+                        <li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Logout">@User.Identity.Name (Çıkış yap) </a>
+
+                            }
+                            else
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Login">Giriş Yap</a>
+                                
+                            }
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "AccessDenied";
+}
+
+<h1>Bu sayfayı görmeye yetkiniz yok!</h1>
+<p>
+    Merhaba @User.Identity.Name ne yazık ki bu sayfayı görmeye yetkili değilsiniz. Çünkü, rolünüz @User.Claims.ToList()[2].Value olarak belirtilmiş. 
+    Eğer bunun bir hata olduğunu düşünüyorsanız @User.Claims.ToList()[1].Value adresiniz ile e-posta gönderiniz.
+
+</p>

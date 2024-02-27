@@ -21,6 +21,8 @@ namespace eshop.Services
 
         Task DeleteAsync(int id);
 
+        Task<IEnumerable<ProductCardResponse>> Search(string name);
+
 
 
     }

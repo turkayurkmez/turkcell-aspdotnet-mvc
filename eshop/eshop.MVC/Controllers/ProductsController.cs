@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace eshop.MVC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Editor")]
     public class ProductsController : Controller
     {
         private readonly ICategoryService categoryService;
@@ -17,8 +17,6 @@ namespace eshop.MVC.Controllers
             this.categoryService = categoryService;
             this.productService = productService;
         }
-
-
         public async Task<IActionResult> Index()
         {
             var products = await productService.GetProductsAsync();
@@ -26,7 +24,6 @@ namespace eshop.MVC.Controllers
         }
 
         [HttpGet]
-
         public IActionResult Create()
         {
             ViewBag.Categories = GetCategorySelectListItems();

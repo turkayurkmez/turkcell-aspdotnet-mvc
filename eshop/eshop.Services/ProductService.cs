@@ -95,6 +95,12 @@ namespace eshop.Services
             return mapper.Map<UpdateProductRequest>(product);
         }
 
+        public async Task<IEnumerable<ProductCardResponse>> Search(string name)
+        {
+            var products = await productRepository.SearchAsync(name);
+            return mapper.Map<IEnumerable<ProductCardResponse>>(products);
+        }
+
         public async Task UpdateAsync(UpdateProductRequest request)
         {
             var product = mapper.Map<Product>(request);

@@ -15,7 +15,7 @@ namespace eshop.Services
             new(){ Id=1, Name="Türkay", UserName="turkay", Email="turkay.urkmez@dinamikzihin.com", Password="123456", Role="Admin"},
             new(){ Id=2, Name="İlker", UserName="ilker", Email="ilker.dalar@turkcell.com.tr", Password="123456", Role="Editor"},
             new(){ Id=3, Name="Gizem", UserName="gizem", Email="gizem.akinci@turkcell.com.tr", Password="123456", Role="Editor"},
-            new(){ Id=4, Name="Ünal", UserName="unal", Email="una.uysal@turkcell.com.tr", Password="123456", Role="Client"},
+            new(){ Id=4, Name="Ünal", UserName="unal", Email="unal.uysal@turkcell.com.tr", Password="123456", Role="Client"},
 
         };
         public User ValidateUser(string username, string password)
