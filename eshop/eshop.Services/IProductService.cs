@@ -23,6 +23,8 @@ namespace eshop.Services
 
         Task<IEnumerable<ProductCardResponse>> Search(string name);
 
+        Task<bool> ProductIsExists(int id);
+
 
 
     }

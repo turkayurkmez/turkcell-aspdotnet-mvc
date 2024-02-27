@@ -19,6 +19,7 @@ namespace eshop.DataAccess.Repositories
         Task UpdateAsync(T entity);
         Task DeleteAsync(int id);
 
+        Task<bool> IsExists(int id);
 
     }
 }

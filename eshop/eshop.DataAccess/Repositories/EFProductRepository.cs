@@ -63,6 +63,11 @@ namespace eshop.DataAccess.Repositories
             return await dbContext.Products.Where(p => p.CategoryId == id).ToListAsync();
         }
 
+        public async Task<bool> IsExists(int id)
+        {
+            return await dbContext.Products.AnyAsync(p => p.Id == id);
+        }
+
         public IEnumerable<Product> Search(string name)
         {
             return dbContext.Products.Where(p => p.Name.Contains(name));

@@ -13,6 +13,22 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("db");
 builder.Services.AddNecessaryInecjtions(connectionString);
 
+builder.Services.AddCors(option => option.AddPolicy("allow", builder =>
+{
+    builder.AllowAnyOrigin();
+    builder.AllowAnyHeader();
+    builder.AllowAnyMethod();
+
+
+    /*
+     * http://www.turkcell.com.tr/deneme
+     * https://www.turkcell.com.tr
+     * https://customer.turkcell.com.tr
+     * http://www.turkcell.com.tr:8854
+     * 
+     * 
+     */
+}));
 
 
 var app = builder.Build();
@@ -26,7 +42,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("allow");
 app.UseAuthorization();
+
 
 app.MapControllers();
 

@@ -95,6 +95,11 @@ namespace eshop.Services
             return mapper.Map<UpdateProductRequest>(product);
         }
 
+        public async Task<bool> ProductIsExists(int id)
+        {
+            return await productRepository.IsExists(id);
+        }
+
         public async Task<IEnumerable<ProductCardResponse>> Search(string name)
         {
             var products = await productRepository.SearchAsync(name);
