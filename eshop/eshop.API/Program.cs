@@ -1,4 +1,8 @@
+using eshop.API.Security;
 using eshop.MVC.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,18 +22,29 @@ builder.Services.AddCors(option => option.AddPolicy("allow", builder =>
     builder.AllowAnyOrigin();
     builder.AllowAnyHeader();
     builder.AllowAnyMethod();
-
-
     /*
      * http://www.turkcell.com.tr/deneme
      * https://www.turkcell.com.tr
      * https://customer.turkcell.com.tr
      * http://www.turkcell.com.tr:8854
-     * 
-     * 
      */
 }));
 
+
+//builder.Services.AddAuthentication("Basic")
+//                .AddScheme<BasicOption, BasicHandler>("Basic", null);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(option => option.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+
+                    ValidIssuer = "server.myapp",
+                    ValidAudience = "client.myapp",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("bu-cümle-bizim-için-kritik-bir-cümle")),
+                    ValidateIssuerSigningKey = true
+                });
 
 var app = builder.Build();
 
@@ -43,6 +58,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("allow");
+app.UseAuthentication();
 app.UseAuthorization();
 
 

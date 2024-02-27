@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="userName">
+    </div>
+    <div>
+        <input type="password" id="passWord">
+    </div>
+    <button id="giris">Giriş yap</button>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#giris').on('click', function () {
+                let userName = $('#userName').val();
+                let password = $('#passWord').val();
+
+                let sendingData = {
+                    "userName": userName,
+                    "password": password
+                };
+
+                let jsonString = JSON.stringify(sendingData);
+
+                $.ajax({
+                    url: 'https://localhost:7009/api/Users',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: jsonString,
+                    success: function (data) {
+                        console.log(data.token);
+                        localStorage.setItem('token', data.token);
+                    }
+                })
+
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

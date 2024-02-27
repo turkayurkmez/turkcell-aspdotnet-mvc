@@ -24,6 +24,7 @@ namespace eshop.API.Controllers
 
         //1. Tüm ürünleri getir:
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProducts()
